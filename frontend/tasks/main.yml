@@ -26,6 +26,7 @@
   ansible.builtin.copy:
     src: /tmp/frontend-main/static/
     dest: /usr/share/nginx/html/
+    remote_src: yes
 #
 #  echo Extracting Web Content
 #  unzip /tmp/frontend.zip &>>LOG_FILE
