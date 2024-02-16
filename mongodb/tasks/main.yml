@@ -1,0 +1,47 @@
+
+#echo "C"
+#curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip" &>>LOG_FILE
+#StatusCheck $?
+#
+#cd /tmp
+#
+#echo "Extract Schema File"
+#unzip -o mongodb.zip &>>LOG_FILE
+#StatusCheck $?
+#
+#cd mongodb-main
+#
+#echo "Load Schema"
+#mongo < catalogue.js &>>LOG_FILE
+#mongo < users.js &>>LOG_FILE
+#StatusCheck $?
+
+- name: Copy mongodb repo file
+  ansible.builtin.copy:
+    src: mongod.repo
+    dest: /etc/yum.repos.d/mongodb.repo
+
+- name: Install mongodb server
+  ansible.builtin.yum:
+    name: mongodb-org
+    state: installed
+
+
+- name: Update MongoDB Listen Address"
+  ansible.builtin.replace:
+    path: /etc/mongod.conf
+    regexp: '127.0.0.0'
+    replace: '0.0.0.0'
+
+- name: Start a mongodb service
+  ansible.builtin.systemd:
+    state: restarted
+    name: mongod
+    enabled: yes
+
+- name: Downloading mongodb schema
+  ansible.builtin.unarchive:
+    src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
+    dest: /tmp
+    remote_src: yes
+
