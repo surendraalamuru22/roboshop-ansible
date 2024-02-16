@@ -1,7 +1,5 @@
 
-#mv frontend-main/static/* .
-#mv frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf
-#
+
 #echo "Update RoboShop Config File"
 #for component in catalogue user cart payment shipping ; do
 #sed -i -e "/$component/ s/localhost/${component}.roboshop.internal/" /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
@@ -45,3 +43,9 @@
   ansible.builtin.copy:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
+
+- name: Start a nginx service
+  ansible.builtin.systemd:
+    state: restarted
+    name: nginx
+    enabled: yes
