@@ -56,9 +56,10 @@
 #    file: "/tmp/mongodb-main/users.js"
 #    idempotent: yes
 
-- name: Load Schema
+- name: Load catalogue Schema
   ansible.builtin.shell: mongo --host mongodb.roboshop.internal </tmp/mongodb-main/catalogue.js
 
 
-
+- name: Load user Schema
+  ansible.builtin.shell: mongo --host mongodb.roboshop.internal </tmp/mongodb-main/users.js
 
