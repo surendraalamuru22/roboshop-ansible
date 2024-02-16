@@ -50,4 +50,5 @@
   community.mongodb.mongodb_shell:
     file: "/tmp/mongodb-main/catalogue.js"
     idempotent: yes
+    ansible.builtin.shell: mongo --host mongodb.roboshop.internal < /tmp/mongodb-main/catalogue.js
 
