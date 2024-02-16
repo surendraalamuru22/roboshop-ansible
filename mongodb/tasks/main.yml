@@ -42,11 +42,11 @@
 - name: Downloading schema files
   ansible.builtin.unarchive:
     src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
-    dest: /tmp
+    dest: /temporary
     remote_src: yes
 
-- name: Load catalogue schema
-  community.mongodb.mongodb_shell:
-    file: "/tmp/mongodb-main/catalogue.js"
-    idempotent: yes
+#- name: Load catalogue schema
+#  community.mongodb.mongodb_shell:
+#    file: "/tmp/mongodb-main/catalogue.js"
+#    idempotent: yes
 
