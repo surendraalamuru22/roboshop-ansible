@@ -1,20 +1,4 @@
 
-
-#echo Downloading Nginx Web Content
-#curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>LOG_FILE
-#StatusCheck $?
-#
-#cd /usr/share/nginx/html
-#
-#
-#echo Removing Old Web Content
-#rm -rf * &>>LOG_FILE
-#StatusCheck $?
-#
-#echo Extracting Web Content
-#unzip /tmp/frontend.zip &>>LOG_FILE
-#StatusCheck $?
-#
 #mv frontend-main/static/* .
 #mv frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf
 #
@@ -51,7 +35,7 @@
     dest: /tmp
     remote_src: yes
 
-- name: Copy file with owner and permissions
+- name: Copy extracted content
   ansible.builtin.copy:
     src: /tmp/frontend-main/static/
     dest: /usr/share/nginx/html/
