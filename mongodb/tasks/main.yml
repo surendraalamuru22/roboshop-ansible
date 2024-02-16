@@ -57,7 +57,7 @@
 #    idempotent: yes
 
 - name: Load Schema
-    ansible.builtin.shell: mongo --host mongodb.roboshop.internal </tmp/mongodb-main/catalogue.js
+  ansible.builtin.shell: mongo --host mongodb.roboshop.internal </tmp/mongodb-main/catalogue.js
 
 
 
