@@ -46,8 +46,8 @@
     remote_src: yes
 
 
-- name: Load catalogue schema
-  community.mongodb.mongodb_shell:
-    file: "/tmp/mongodb-main/users.js"
-    idempotent: yes
+#- name: Load catalogue schema
+#  community.mongodb.mongodb_shell:
+#    file: "/tmp/mongodb-main/users.js"
+#    idempotent: yes
 
