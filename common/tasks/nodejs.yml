@@ -1,8 +1,5 @@
 
-#echo "inatall Nodejs dependencies"
-#npm install &>>LOG_FILE0
-#StatusCheck $?
-#
+
 #SYSTEMD_SETUP
 
 - name: Setting nodejs Repo
@@ -15,7 +12,7 @@
 
 
 
-- name: Include task list in play
+- name: Include task App-prereq
   ansible.builtin.import_tasks: App-prereq.yml
 
 - name: Inatall Nodejs dependencies
@@ -23,3 +20,6 @@
     path: /home/roboshop/{{COMPONENT}}/
     state: latest
   become_user: roboshop
+
+- name: Include task systemd
+  ansible.builtin.import_tasks: systemd.yml
