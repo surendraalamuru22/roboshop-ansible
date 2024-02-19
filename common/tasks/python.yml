@@ -1,0 +1,38 @@
+#echo "Install Python 3"
+#yum install python36 gcc -y &>>${LOG_FILE}
+#StatusCheck $?
+#
+#APP_PREREQ
+#
+#cd /home/roboshop/${COMPONENT}
+#
+#echo "Install Python Dependencies for APP``"
+#pip3 install -r requirements.txt &>>${LOG_FILE}
+#StatusCheck $?
+#
+#APP_UID=$(id -u roboshop)
+#APP_GID=$(id -g roboshop)
+#
+#echo "Update Payment Configuration file"
+#sed -i -e "/uid/ c uid = ${APP_UID}" -e "/gid/ c gid = ${APP_GID}" /home/roboshop/${COMPONENT}/${COMPONENT}.ini &>>${LOG_FILE}
+#StatusCheck $?
+#
+#SYSTEMD_SETUP
+
+- name: Install python
+  ansible.builtin.yum:
+    name: "{{item}}"
+    state: installed
+    loop:
+      - python36
+      - gcc
+      - python36-devil
+
+- name: Import App Pre-Req Task file
+  ansible.builtin.import_tasks: App-prereq.yml
+
+
+- name: Install PIP requirements file
+  ansible.builtin.pip:
+    requirements: /home/roboshop/{{COMPONENT}}/requirements.txt
+    executable: pip3
