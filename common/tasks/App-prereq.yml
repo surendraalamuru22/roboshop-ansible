@@ -35,7 +35,7 @@
 
 - name: Downloading application code & extract it
   ansible.builtin.unarchive:
-    src: curl -s -L -o /tmp/{{COMPONENT}}.zip "https://github.com/roboshop-devops-project/{{COMPONENT}}/archive/main.zip
+    src: https://github.com/roboshop-devops-project/{{COMPONENT}}/archive/main.zip
     dest: /tmp
     remote_src: yes
 
