@@ -1,7 +1,3 @@
-
-
-#SYSTEMD_SETUP
-
 - name: Setting nodejs Repo
   ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
@@ -10,12 +6,10 @@
     name: nodejs
     state: installed
 
-
-
 - name: Include task App-prereq
   ansible.builtin.import_tasks: App-prereq.yml
 
-- name: Inatall Nodejs dependencies
+- name: Install Nodejs dependencies
   community.general.npm:
     path: /home/roboshop/{{COMPONENT}}/
     state: latest
