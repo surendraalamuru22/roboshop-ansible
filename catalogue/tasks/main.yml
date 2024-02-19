@@ -1,0 +1,12 @@
+#COMPONENT=catalogue
+#LOG_FILE=/tmp/${COMPONENT}
+#
+#source common.sh
+
+- name: Run NodeJS
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: nodejs
+
+
+
