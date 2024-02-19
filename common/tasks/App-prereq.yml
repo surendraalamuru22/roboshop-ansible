@@ -28,7 +28,7 @@
   ansible.builtin.user:
     name: roboshop
 
-- name: Removing old app content
+- name: Clean UP old App Content
   ansible.builtin.file:
     path: /home/roboshop/{{COMPONENT}}
     state: absent
