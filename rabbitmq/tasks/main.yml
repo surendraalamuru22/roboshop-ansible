@@ -9,9 +9,12 @@
   loop:
     - https://github.com/rabbitmq/erlang-rpm/releases/download/v25.1/erlang-25.1-1.el8.x86_64.rpm
 
-- name: install rabbitmq
+- name: Setting yum  Repos
+  ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash
+
+- name: install rabbitmq-server
   ansible.builtin.yum:
-    name: https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash
+    name: rabbitmq-server
     state: installed
     disable_gpg_check: yes
 
