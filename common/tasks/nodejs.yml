@@ -1,13 +1,4 @@
-#echo "Setting nodejs Repo"
-#curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>${LOG_FILE}
-#StatusCheck $?
-#
-#echo "install nodejs"
-#yum install nodejs -y &>>${LOG_FILE}
-#StatusCheck $?
-#
-#APP_PREREQ
-#
+
 #echo "inatall Nodejs dependencies"
 #npm install &>>LOG_FILE0
 #StatusCheck $?
@@ -26,3 +17,9 @@
 
 - name: Include task list in play
   ansible.builtin.import_tasks: App-prereq.yml
+
+- name: Inatall Nodejs dependencies
+  community.general.npm:
+    path: /home/roboshop/{{COMPONENT}}/
+    state: latest
+  become_user: roboshop
