@@ -19,14 +19,13 @@
 #
 #SYSTEMD_SETUP
 
-- name: Install python
+- name: Install Pyhton
   ansible.builtin.yum:
-    name: "{{item}}"
-    state: installed
-    loop:
+    name:
       - python36
       - gcc
-      - python36-devil
+      - python36-devel
+    state: installed
 
 - name: Import App Pre-Req Task file
   ansible.builtin.import_tasks: App-prereq.yml
