@@ -24,3 +24,15 @@
   ansible.builtin.pip:
     requirements: /home/roboshop/{{COMPONENT}}/requirements.txt
     executable: pip3
+
+- name: Change UID & GID in App configuration
+  ansible.builtin.lineinfile:
+    path: /home/roboshop/{{COMPONENT}}/{{COMPONENT}}.ini
+    regexp: '^{{item.name}}'
+    line: uid = {{item.id}}
+  loop:
+    - { name: "uid", id: "{{appuser.uid}}"}
+    - { name: "gid", id: "{{appuser.group}}"}
+
+- name: Import SystemD tasks
+  ansible.builtin.import_tasks: systemd.yml
