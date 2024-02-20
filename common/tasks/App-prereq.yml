@@ -1,6 +1,7 @@
 - name: Add the application user
   ansible.builtin.user:
     name: roboshop
+  register: appuser
 
 - name: Clean UP old App Content
   ansible.builtin.file:
