@@ -39,9 +39,9 @@
 #    idempotent: yes
 
 - name: Load catalogue Schema
-  ansible.builtin.shell: mongo --host mongodb.roboshop.internal </tmp/mongodb-main/catalogue.js
+  ansible.builtin.shell: mongo --host mongodb-{{ENV}}.roboshop.internal </tmp/mongodb-main/catalogue.js
 
 
 - name: Load user Schema
-  ansible.builtin.shell: mongo --host mongodb.roboshop.internal </tmp/mongodb-main/users.js
+  ansible.builtin.shell: mongo --host mongodb-{{ENV}}.roboshop.internal </tmp/mongodb-main/users.js
 
