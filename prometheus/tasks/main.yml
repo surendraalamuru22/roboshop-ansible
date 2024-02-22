@@ -3,7 +3,7 @@
     src: prometheus.yml
     dest: /opt/prometheus/prometheus.yml
 
-- name: Restart prometheous
+- name: Restart prometheus
   ansible.builtin.systemd:
     name: prometheus
     state: restarted
