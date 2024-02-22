@@ -10,6 +10,7 @@
 
 - name: Wait for prometheus port open
   ansible.builtin.wait_for:
+    host: 0.0.0.0
     port: 9090
     delay: 10
     timeout: 30
