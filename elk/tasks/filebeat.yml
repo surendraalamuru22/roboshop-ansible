@@ -7,3 +7,13 @@
   ansible.builtin.yum:
     name: filebeat
     state: installed
+
+-  name: Copy filebeat config
+   ansible.builtin.template:
+     src: filebeat.yml
+     dest: /etc/filebeat/filebeat.yml
+
+- name: Restart filebeat service
+  ansible.builtin.systemd:
+    name: filebeat
+    state: restarted
