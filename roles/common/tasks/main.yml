@@ -1,12 +1,12 @@
-- name: Set Host-name
-  ansible.builtin.shell: set-hostname {{COMPONENT}}
+- name: Set Prompt
+  ansible.builtin.shell: Set Prompt {{COMPONENT}}
 
-- name: Install prometheus node-exporter
-  ansible.builtin.shell: labauto prometheus-node-exporter
-  when: PROMETHEUS_MONITOR | bool
-
-- name: Setup Rsyslog Config
-  when: RSYSLOG_CONFIG | bool
-  ansible.builtin.import_role:
-    name: elk
-    tasks_from: rsyslog
+#- name: Install prometheus node-exporter
+#  ansible.builtin.shell: labauto prometheus-node-exporter
+#  when: PROMETHEUS_MONITOR | bool
+#
+#- name: Setup Rsyslog Config
+#  when: RSYSLOG_CONFIG | bool
+#  ansible.builtin.import_role:
+#    name: elk
+#    tasks_from: rsyslog
