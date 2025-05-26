@@ -1,47 +1,51 @@
-- name: Copy mongodb repo file
-  ansible.builtin.copy:
-    src: mongod.repo
-    dest: /etc/yum.repos.d/mongodb.repo
-
-- name: Install mongodb server
-  ansible.builtin.yum:
-    name: mongodb-org
-    state: installed
-
-
-- name: Update MongoDB Listen Address"
-  ansible.builtin.replace:
-    path: /etc/mongod.conf
-    regexp: '127.0.0.1'
-    replace: '0.0.0.0'
-
-- name: Start a mongodb service
-  ansible.builtin.systemd:
-    state: restarted
-    name: mongod
-    enabled: yes
-
-
-- name: Downloading schema files
-  ansible.builtin.unarchive:
-    src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
-    dest: /tmp
-    remote_src: yes
-
-#- name: Load catalogue schema
-#  community.mongodb.mongodb_shell:
-#    file: "/tmp/mongodb-main/catalogue.js"
-#    idempotent: yes
+#- name: Copy mongodb repo file
+#  ansible.builtin.copy:
+#    src: mongod.repo
+#    dest: /etc/yum.repos.d/mongodb.repo
 #
-#- name: Load user schema
-#  community.mongodb.mongodb_shell:
-#    file: "/tmp/mongodb-main/users.js"
-#    idempotent: yes
+#- name: Install mongodb server
+#  ansible.builtin.yum:
+#    name: mongodb-org
+#    state: installed
+#
+#
+#- name: Update MongoDB Listen Address"
+#  ansible.builtin.replace:
+#    path: /etc/mongod.conf
+#    regexp: '127.0.0.1'
+#    replace: '0.0.0.0'
+#
+#- name: Start a mongodb service
+#  ansible.builtin.systemd:
+#    state: restarted
+#    name: mongod
+#    enabled: yes
+#
+#
+#- name: Downloading schema files
+#  ansible.builtin.unarchive:
+#    src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
+#    dest: /tmp
+#    remote_src: yes
+#
+##- name: Load catalogue schema
+##  community.mongodb.mongodb_shell:
+##    file: "/tmp/mongodb-main/catalogue.js"
+##    idempotent: yes
+##
+##- name: Load user schema
+##  community.mongodb.mongodb_shell:
+##    file: "/tmp/mongodb-main/users.js"
+##    idempotent: yes
+#
+#- name: Load catalogue Schema
+#  ansible.builtin.shell: mongo --host mongodb-{{ENV}}.roboshop.internal </tmp/mongodb-main/catalogue.js
+#
+#
+#- name: Load user Schema
+#  ansible.builtin.shell: mongo --host mongodb-{{ENV}}.roboshop.internal </tmp/mongodb-main/users.js
 
-- name: Load catalogue Schema
-  ansible.builtin.shell: mongo --host mongodb-{{ENV}}.roboshop.internal </tmp/mongodb-main/catalogue.js
-
-
-- name: Load user Schema
-  ansible.builtin.shell: mongo --host mongodb-{{ENV}}.roboshop.internal </tmp/mongodb-main/users.js
-
+- name: Install Docker
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: docker

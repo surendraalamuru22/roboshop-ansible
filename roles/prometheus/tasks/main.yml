@@ -1,40 +1,40 @@
-- name: Copy Prometheus Configuration
-  ansible.builtin.template:
-    src: "{{item}}"
-    dest: /opt/prometheus/{{item}}
-  loop:
-    - prometheus.yml
-    - record-rules.yml
-    - alert-rules.yml
-
-
-- name: Restart prometheus
-  ansible.builtin.systemd:
-    name: prometheus
-    state: restarted
-
-- name: Wait for prometheus port open
-  ansible.builtin.wait_for:
-    host: 0.0.0.0
-    port: 9090
-    delay: 10
-    timeout: 30
-
-- name: Copy Alert Manager Configuration
-  ansible.builtin.template:
-    src: alertmanager.yml
-    dest: /opt/alertmanager/alertmanager.yml
-
-- name: Restart Alert Manager
-  ansible.builtin.systemd:
-    name: alertmanager
-    state: restarted
-
-- name: Wait for alertmanager Service to Start
-  ansible.builtin.wait_for:
-    host: 0.0.0.0
-    port: 9093
-    delay: 10
-    timeout: 30
+#- name: Copy Prometheus Configuration
+#  ansible.builtin.template:
+#    src: "{{item}}"
+#    dest: /opt/prometheus/{{item}}
+#  loop:
+#    - prometheus.yml
+#    - record-rules.yml
+#    - alert-rules.yml
+#
+#
+#- name: Restart prometheus
+#  ansible.builtin.systemd:
+#    name: prometheus
+#    state: restarted
+#
+#- name: Wait for prometheus port open
+#  ansible.builtin.wait_for:
+#    host: 0.0.0.0
+#    port: 9090
+#    delay: 10
+#    timeout: 30
+#
+#- name: Copy Alert Manager Configuration
+#  ansible.builtin.template:
+#    src: alertmanager.yml
+#    dest: /opt/alertmanager/alertmanager.yml
+#
+#- name: Restart Alert Manager
+#  ansible.builtin.systemd:
+#    name: alertmanager
+#    state: restarted
+#
+#- name: Wait for alertmanager Service to Start
+#  ansible.builtin.wait_for:
+#    host: 0.0.0.0
+#    port: 9093
+#    delay: 10
+#    timeout: 30
 
 

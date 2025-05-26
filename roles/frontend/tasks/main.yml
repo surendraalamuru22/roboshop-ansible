@@ -1,4 +1,7 @@
-
+- name: Install Docker
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: docker
 
 #echo "Update RoboShop Config File"
 #for component in catalogue user cart payment shipping ; do
@@ -7,20 +10,20 @@
 #  #sed -i -e '/catalogue/ s/localhost/catalogue.roboshop.internal/' -e '/user/ s/localhost/user.roboshop.internal/' -e '/cart/ s/localhost/cart.roboshop.internal/' -e '/payment/ s/localhost/payment.roboshop.internal/' -e '/shipping/ s/localhost/shipping.roboshop.internal/' /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
 #StatusCheck $?
 
-- name: Install Nginx
-  ansible.builtin.yum:
-    name: nginx
-    state: installed
-
-- name: Start a nginx service
-  ansible.builtin.systemd_service:
-    state: started
-    name: nginx
-
-- name: Removing Old Web Content
-  ansible.builtin.file:
-    path: /usr/share/nginx/html
-    state: absent
+#- name: Install Nginx
+#  ansible.builtin.yum:
+#    name: nginx
+#    state: installed
+#
+#- name: Start a nginx service
+#  ansible.builtin.systemd_service:
+#    state: started
+#    name: nginx
+#
+#- name: Removing Old Web Content
+#  ansible.builtin.file:
+#    path: /usr/share/nginx/html
+#    state: absent
 
 
 #- name: Downloading Nginx Web Content & extract it
@@ -35,39 +38,39 @@
 #    dest: /usr/share/nginx/html/
 #    remote_src: yes
 
-- name: Create application directory
-  ansible.builtin.file:
-    path: /usr/share/nginx/html
-    state: directory
-
-- name: Downloading Application Content
-  ansible.builtin.unarchive:
-    src: http://{{NEXUS_USER}}:{{NEXUS_PASS}}@nexus.roboshop.internal:8081/repository/{{COMPONENT}}/{{COMPONENT}}-{{APP_VERSION}}.zip
-    dest: /usr/share/nginx/html
-    remote_src: yes
-
-- name: Copy Nginx Service Config file
-  ansible.builtin.template:
-    src: nginx.conf
-    dest: /etc/nginx/nginx.conf
-  notify: Restart Nginx Service
-
-- name: Copy Roboshop config file
-  ansible.builtin.template:
-    src: roboshop.conf
-    dest: /etc/nginx/default.d/roboshop.conf
-  notify: Restart Nginx Service
-
-
-
-- name: Start a nginx service
-  ansible.builtin.systemd:
-    state: restarted
-    name: nginx
-    enabled: yes
-
-- name: Run filebeat
-  ansible.builtin.import_role:
-    name: elk
-    tasks_from: filebeat
+#- name: Create application directory
+#  ansible.builtin.file:
+#    path: /usr/share/nginx/html
+#    state: directory
+#
+#- name: Downloading Application Content
+#  ansible.builtin.unarchive:
+#    src: http://{{NEXUS_USER}}:{{NEXUS_PASS}}@nexus.roboshop.internal:8081/repository/{{COMPONENT}}/{{COMPONENT}}-{{APP_VERSION}}.zip
+#    dest: /usr/share/nginx/html
+#    remote_src: yes
+#
+#- name: Copy Nginx Service Config file
+#  ansible.builtin.template:
+#    src: nginx.conf
+#    dest: /etc/nginx/nginx.conf
+#  notify: Restart Nginx Service
+#
+#- name: Copy Roboshop config file
+#  ansible.builtin.template:
+#    src: roboshop.conf
+#    dest: /etc/nginx/default.d/roboshop.conf
+#  notify: Restart Nginx Service
+#
+#
+#
+#- name: Start a nginx service
+#  ansible.builtin.systemd:
+#    state: restarted
+#    name: nginx
+#    enabled: yes
+#
+#- name: Run filebeat
+#  ansible.builtin.import_role:
+#    name: elk
+#    tasks_from: filebeat
 
