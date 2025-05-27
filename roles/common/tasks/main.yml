@@ -1,5 +1,5 @@
 - name: Set Prompt
-  ansible.builtin.shell: set-prompt {{COMPONENT}}
+  ansible.builtin.shell: set-prompt {{COMPONENT}}-{{env}}
 
 #- name: Install prometheus node-exporter
 #  ansible.builtin.shell: labauto prometheus-node-exporter
